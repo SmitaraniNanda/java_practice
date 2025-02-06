@@ -16,7 +16,7 @@ public class StringManipulation {
         // Finding the length of the string
         int length = userInput.length();
         
-        // Replacing occurrences of a specific character
+        // Replacing occurrences of a specific char
         System.out.print("Enter the character to replace: ");
         char oldChar = scanner.next().charAt(0);
         System.out.print("Enter the new character: ");

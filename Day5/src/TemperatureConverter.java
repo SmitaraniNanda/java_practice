@@ -12,7 +12,7 @@ public class TemperatureConverter {
 	    }
 
 	    public static void main(String[] args) {
-	        double inputCelsiusTemperature = 25.0;
+	        double inputCelsiusTemperature = 27.0;
 	        System.out.println(inputCelsiusTemperature + "Celsius is equal to " 
 	                + convertCelsiusToFahrenheit(inputCelsiusTemperature) + "Farenheit");
 	    }

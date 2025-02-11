@@ -14,11 +14,11 @@ public class PatternProgram {
      * @param args Command-line arguments (not used)
      */
     public static void main(String[] args) {
-        Scanner inputScanner = new Scanner(System.in); // Scanner object for user input
+        Scanner Scanner = new Scanner(System.in); // Scanner object for user input
         System.out.print("Enter the number of rows: ");
         
-        int totalRows = inputScanner.nextInt(); // Store the user input
-        inputScanner.close(); // Close the scanner to prevent resource leaks
+        int totalRows = Scanner.nextInt(); // Store the user input
+        Scanner.close(); // Close the scanner to prevent resource leaks
 
         // Generate and print the pattern
         for (int currentRow = 1; currentRow <= totalRows; currentRow++) {

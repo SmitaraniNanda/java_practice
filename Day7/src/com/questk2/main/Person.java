@@ -8,7 +8,7 @@ public class Person {
 	    private String name;
 	    private int age;
 
-	    /**
+	    /*
 	     * Default constructor.
 	     * Initializes the person with default values.
 	     */
@@ -26,7 +26,7 @@ public class Person {
 	        this.age = 0; // Default age 
 	    }
 
-	    /**
+	    /*
 	     * Parameterized constructor to initialize name and age.
 	     * @param name The name of the person.
 	     * @param age  The age of the person.

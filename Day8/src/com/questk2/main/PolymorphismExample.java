@@ -11,9 +11,9 @@ class Vehicle {
 
 // Child class: Car
 class Car extends Vehicle {
-    /**
-     * Describes how a car moves.
-     */
+   
+	//Describes how a car moves.
+     
     @Override
     public void move() {
         System.out.println("Car moves on four wheels!");

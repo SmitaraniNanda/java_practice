@@ -17,13 +17,13 @@ public class Person {
 	        this.age = 0;
 	    }
 
-	    /**
+	    /*
 	     * Parameterized constructor to initialize name. 
 	     * @param name The name of the person.
 	     */
 	    public Person(String name) {
 	        this.name = name;
-	        this.age = 0; // Default age k
+	        this.age = 0; // Default age 
 	    }
 
 	    /**

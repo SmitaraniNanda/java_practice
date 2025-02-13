@@ -32,9 +32,9 @@ class DemoClass implements FirstInterface, SecondInterface {
     System.out.println("Some text..");
   }
 
-  /**
-   * Implements myOtherMethod from SecondInterface.
-   * Prints another message to the console.
+  /*
+    Implements myOtherMethod from SecondInterface.
+    Prints another message to the console.
    */
   public void myOtherMethod() {
     System.out.println("Some other text...");

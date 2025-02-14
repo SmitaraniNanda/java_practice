@@ -46,7 +46,7 @@ class DemoClass implements FirstInterface, SecondInterface {
 class InterfaceExample {
   /**
    * The main method is the entry point of the program.
-   * 
+  
    * @param args Command-line arguments (not used in this program).
    */
   public static void main(String[] args) {

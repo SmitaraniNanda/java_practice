@@ -14,8 +14,7 @@ class Car extends Vehicle {
    
 	//Describes how a car moves.
      
-  
-    public void move() {
+  public void move() {
         System.out.println("Car moves on four wheels!");
     }
 }

@@ -1,5 +1,6 @@
 package com.questk2.Bank;
 
+
 import java.util.Scanner;
 
 /**
@@ -10,12 +11,22 @@ public class BankingApplication {
         Scanner scanner = new Scanner(System.in);
         BankManager bankManager = new BankManager();
 
-        System.out.print("Enter your account number: ");
+        System.out.print("Enter your account number to create a new account: ");
         int accountNumber = scanner.nextInt();
+        
+        System.out.print("Enter initial deposit amount: ");
+        double initialBalance = scanner.nextDouble();
 
         try {
-            // Validate account number
-            BankAccount userAccount = bankManager.getAccount(accountNumber);
+            if (initialBalance < 0) {
+                throw new InvalidAmountException("Initial deposit cannot be negative.");
+            }
+            
+            // Creating and adding a new account based on user input
+            BankAccount userAccount = new BankAccount(accountNumber, initialBalance);
+            bankManager.addAccount(userAccount);
+            System.out.println("Account created successfully!");
+
             boolean running = true;
 
             while (running) {

@@ -29,6 +29,15 @@ public class Book {
     public int getId() {
         return id;
     }
+    
+    /**
+     * Gets to retrive the book title.
+     *
+     * @return The title of the book.
+     */
+    public String getTitle() {
+    	return title;
+    }
 
     /**
      * Gets the category of the book.

@@ -6,7 +6,7 @@ package com.questk2.library;
 public class LibraryManagement {
     
     /** Array to store books in the library catalog. */
-    public Book[] booksCatalog;
+    public Book[] booksCatalog ;
 
     /** Keeps track of the number of books in the catalog. */
     public int bookCount;

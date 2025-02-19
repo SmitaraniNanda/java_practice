@@ -7,7 +7,7 @@ import java.util.*;
 	    public static void main(String[] args) {
 	        // Using List to store multiple Person objects
 	        List<PersonCollection> personList = new ArrayList<>();
-	        personList.add(new PersonCollection("Smita", 25, "India", Arrays.asList("Math","Science")));
+	        personList.add(new PersonCollection("Smita", 25, "India", Arrays.asList("Math","Odia")));
 	        personList.add(new PersonCollection("Sita", 30, "New York", Arrays.asList("History", "Science")));
 
 	        // Using Set to store unique Person objects

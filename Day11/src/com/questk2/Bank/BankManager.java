@@ -12,16 +12,16 @@ public class BankManager {
      */
     public BankManager() {
         this.accounts = new BankAccount[10]; // Maximum of 10 accounts (can be increased)
-        this.accountCount = 0;
+        this.accountCount = 0; // no account created
     }
 
     /**
      * Adds a new account to the bank.
      * @param account The BankAccount object to add.
      */
-    public void addAccount(BankAccount account) {
-        if (accountCount < accounts.length) {
-            accounts[accountCount++] = account;
+    public void addAccount(BankAccount account) { //adds the new bankAccount obj to the Arrays
+        if (accountCount < accounts.length) {//check if array has space
+            accounts[accountCount++] = account; //if space available account then stored and accountCount increamented
         } else {
             System.out.println("Bank account limit reached. Cannot add more accounts.");
         }

@@ -10,15 +10,15 @@ import java.util.*;
 	        personList.add(new PersonCollection("Sita", 30, "New York", Arrays.asList("History", "Science")));
 
 	        // Using Set to store unique Person objects
-	        Set<PersonCollection> personSet = new HashSet<>(personList);
+	        Set<PersonCollection> personSet = new HashSet<>();
 	        personSet.add(new PersonCollection("Charlie", 22, "Chicago", Arrays.asList("Physics", "Chemistry")));
 
 	        // Using Vector
-	        Vector<PersonCollection> personVector = new Vector<>(personList);
+	        Vector<PersonCollection> personVector = new Vector<>();
 	        personVector.add(new PersonCollection("Mamali", 28, "America", Arrays.asList("Biology", "English")));
 
 	        // Using Queue (LinkedList as Queue)
-	        Queue<PersonCollection> personQueue = new LinkedList<>(personList);
+	        Queue<PersonCollection> personQueue = new LinkedList<>();
 	        personQueue.offer(new PersonCollection("Rutu", 26, "Japan", Arrays.asList("English", "Art")));
 
 	        // Perform some operations

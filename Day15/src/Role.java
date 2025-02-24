@@ -4,23 +4,42 @@ enum Role {
     DEVELOPER(3, true),
     GUEST(4, false);
 
-    private final int level;
-    private final boolean hasPermissions;
+    private final int accessLevel;
+    private final boolean hasAccessPermissions;
 
-    Role(int level, boolean hasPermissions) {
-        this.level = level;
-        this.hasPermissions = hasPermissions;
+    /**
+     * Constructor to initialize the role with its access level and permissions.
+     *
+     * @param accessLevel         The hierarchical level of the role.
+     * @param hasAccessPermissions Boolean indicating if the role has special permissions.
+     */
+    Role(int accessLevel, boolean hasAccessPermissions) {
+        this.accessLevel = accessLevel;
+        this.hasAccessPermissions = hasAccessPermissions;
     }
 
-    public int getLevel() {
-        return level;
+    /**
+     * Retrieves the access level of the role.
+     *
+     * @return The access level of the role.
+     */
+    public int getAccessLevel() {
+        return accessLevel;
     }
 
-    public boolean hasPermissions() {
-        return hasPermissions;
+    /**
+     * Checks if the role has special access permissions.
+     *
+     * @return True if the role has permissions, false otherwise.
+     */
+    public boolean hasAccessPermissions() {
+        return hasAccessPermissions;
     }
 
-    public void performTask() {
+    /**
+     * Performs a task specific to the role.
+     */
+    public void executeRoleTask() {
         switch (this) {
             case ADMIN -> System.out.println("ADMIN: Can manage users.");
             case MANAGER -> System.out.println("MANAGER: Can manage projects.");
@@ -29,24 +48,34 @@ enum Role {
         }
     }
 
-    public static Role getRoleByLevel(int level) {
+    /**
+     * Retrieves the role based on the provided access level.
+     *
+     * @param accessLevel The access level of the role to be fetched.
+     * @return The corresponding Role enum.
+     * @throws IllegalArgumentException If no role is found with the given level.
+     */
+    public static Role getRoleByAccessLevel(int accessLevel) {
         for (Role role : Role.values()) {
-            if (role.getLevel() == level) {
+            if (role.getAccessLevel() == accessLevel) {
                 return role;
             }
         }
-        throw new IllegalArgumentException("No role found with level: " + level);
+        throw new IllegalArgumentException("No role found with access level: " + accessLevel);
     }
 
+    /**
+     * Displays all roles along with their details and executes their respective tasks.
+     */
     public static void displayAllRoles() {
         for (Role role : Role.values()) {
-            System.out.println("Role: " + role + ", Level: " + role.getLevel() + ", Has Permissions: " + role.hasPermissions());
-            role.performTask();
+            System.out.println("Role: " + role + ", Access Level: " + role.getAccessLevel() + ", Has Permissions: " + role.hasAccessPermissions());
+            role.executeRoleTask();
         }
     }
 
     public static void main(String[] args) {
         displayAllRoles();
-        System.out.println("Fetching Role by Level 2: " + getRoleByLevel(2));
+        System.out.println("Fetching Role by Access Level 2: " + getRoleByAccessLevel(2));
     }
 }

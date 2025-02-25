@@ -11,11 +11,11 @@ public class Employee {
 
     /**
      * Constructs an Employee object with the specified details.
-     * 
-     * @param empId The ID of the employee.
-     * @param empName The name of the employee.
-     * @param department The department to which the employee belongs.
-     * @param salary The salary of the employee.
+     *
+     * @param empId       The ID of the employee.
+     * @param empName     The name of the employee.
+     * @param department  The department to which the employee belongs.
+     * @param salary      The salary of the employee.
      * @param empJoinDate The join date of the employee.
      */
     public Employee(int empId, String empName, Department department, double salary, Date empJoinDate) {
@@ -28,7 +28,7 @@ public class Employee {
 
     /**
      * Gets the ID of the employee.
-     * 
+     *
      * @return The employee ID.
      */
     public int getEmpId() {
@@ -36,8 +36,17 @@ public class Employee {
     }
 
     /**
+     * Sets the ID of the employee.
+     *
+     * @param empId The new employee ID.
+     */
+    public void setEmpId(int empId) {
+        this.empId = empId;
+    }
+
+    /**
      * Gets the name of the employee.
-     * 
+     *
      * @return The employee's name.
      */
     public String getEmpName() {
@@ -45,8 +54,17 @@ public class Employee {
     }
 
     /**
+     * Sets the name of the employee.
+     *
+     * @param empName The new employee name.
+     */
+    public void setEmpName(String empName) {
+        this.empName = empName;
+    }
+
+    /**
      * Gets the department to which the employee belongs.
-     * 
+     *
      * @return The employee's department.
      */
     public Department getDepartment() {
@@ -54,8 +72,17 @@ public class Employee {
     }
 
     /**
+     * Sets the department of the employee.
+     *
+     * @param department The new department.
+     */
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    /**
      * Gets the salary of the employee.
-     * 
+     *
      * @return The employee's salary.
      */
     public double getSalary() {
@@ -63,8 +90,17 @@ public class Employee {
     }
 
     /**
+     * Sets the salary of the employee.
+     *
+     * @param salary The new salary.
+     */
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    /**
      * Gets the join date of the employee.
-     * 
+     *
      * @return The employee's join date.
      */
     public Date getEmpJoinDate() {
@@ -72,13 +108,28 @@ public class Employee {
     }
 
     /**
-     * Returns a string representation of the Employee object, including details like
-     * employee ID, name, department name, salary, and join date.
-     * 
+     * Sets the join date of the employee.
+     *
+     * @param empJoinDate The new join date.
+     */
+    public void setEmpJoinDate(Date empJoinDate) {
+        this.empJoinDate = empJoinDate;
+    }
+
+    /**
+     * Returns a string representation of the Employee object, including details
+     * like employee ID, name, department name, salary, and join date.
+     *
      * @return A string representing the employee's details.
      */
     @Override
     public String toString() {
-        return "Employee{" + "empId=" + empId + ", empName='" + empName + '\'' + ", department=" + department.getDeptName() + ", salary=" + salary + ", empJoinDate=" + empJoinDate + '}';
+        return "Employee{" +
+                "empId=" + empId +
+                ", empName='" + empName + '\'' +
+                ", department=" + (department != null ? department.getDeptName() : "None") +
+                ", salary=" + salary +
+                ", empJoinDate=" + empJoinDate +
+                '}';
     }
 }

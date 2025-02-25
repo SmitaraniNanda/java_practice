@@ -6,8 +6,8 @@ public class Department {
 
     /**
      * Constructs a Department object with the specified department ID and name.
-     * 
-     * @param deptId The ID of the department.
+     *
+     * @param deptId   The ID of the department.
      * @param deptName The name of the department.
      */
     public Department(Integer deptId, String deptName) {
@@ -17,7 +17,7 @@ public class Department {
 
     /**
      * Gets the ID of the department.
-     * 
+     *
      * @return The department ID.
      */
     public Integer getDeptId() {
@@ -25,8 +25,17 @@ public class Department {
     }
 
     /**
+     * Sets the ID of the department.
+     *
+     * @param deptId The new department ID.
+     */
+    public void setDeptId(Integer deptId) {
+        this.deptId = deptId;
+    }
+
+    /**
      * Gets the name of the department.
-     * 
+     *
      * @return The department name.
      */
     public String getDeptName() {
@@ -34,12 +43,25 @@ public class Department {
     }
 
     /**
-     * Returns a string representation of the Department object, including the department ID and name.
-     * 
-     * @return A string representing the department's ID and name.
+     * Sets the name of the department.
+     *
+     * @param deptName The new department name.
+     */
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
+
+    /**
+     * Returns a string representation of the Department object, including the
+     * department ID and name.
+     *
+     * @return A string representing the department's details.
      */
     @Override
     public String toString() {
-        return "Department{" + "deptId=" + deptId + ", deptName='" + deptName + "'}";
+        return "Department{" +
+                "deptId=" + deptId +
+                ", deptName='" + deptName + '\'' +
+                '}';
     }
 }

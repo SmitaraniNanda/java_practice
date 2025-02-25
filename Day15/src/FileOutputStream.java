@@ -20,6 +20,6 @@ public class FileOutputStream {
     }
 
     public static void main(String[] args) {
-        readFileContents("example.txt");
+        readFileContents("D:\\example.txt");
     }
 }

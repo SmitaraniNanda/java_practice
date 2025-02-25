@@ -38,7 +38,7 @@ public class Company {
      * @throws CustomException If the department doesn't exist or no employees are found in the department.
      *                         Also thrown if the employee is not found.
      */
-    public void deleteEmployee(int empId, String deptName) throws CustomException {
+    public void deleteEmployee(Integer empId, String deptName) throws CustomException {
         List<Employee> employees = departmentMap.get(deptName);
         if (employees == null || employees.isEmpty()) {
             throw new CustomException("Department not found or no employees in department");
@@ -61,7 +61,7 @@ public class Company {
      * @param newSalary The new salary for the employee.
      * @throws CustomException If the department is not found or the employee doesn't exist.
      */
-    public void updateEmployee(int empId, String deptName, String newName, double newSalary) throws CustomException {
+    public void updateEmployee(Integer empId, String deptName, String newName, double newSalary) throws CustomException {
         List<Employee> employees = departmentMap.get(deptName);
         if (employees == null || employees.isEmpty()) {
             throw new CustomException("Department not found or no employees in department");
@@ -90,9 +90,9 @@ public class Company {
             throw new CustomException("Department not found or no employees in department");
         }
         employees.stream()
-                 .sorted(Comparator.comparing(Employee::getEmpJoinDate).reversed())
-                 .forEach(System.out::println);
-    }
+        .sorted(Comparator.comparing(Employee::getEmpJoinDate).reversed())
+        .forEach(System.out::println);
+ } 
 
     /**
      * Demonstrates handling a ConcurrentModificationException by modifying a list while iterating over it.

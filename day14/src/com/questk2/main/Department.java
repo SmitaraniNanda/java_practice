@@ -1,7 +1,7 @@
 package com.questk2.main;
 
 public class Department {
-    private int deptId;
+    private Integer deptId;
     private String deptName;
 
     /**
@@ -10,7 +10,7 @@ public class Department {
      * @param deptId The ID of the department.
      * @param deptName The name of the department.
      */
-    public Department(int deptId, String deptName) {
+    public Department(Integer deptId, String deptName) {
         this.deptId = deptId;
         this.deptName = deptName;
     }
@@ -20,7 +20,7 @@ public class Department {
      * 
      * @return The department ID.
      */
-    public int getDeptId() {
+    public Integer getDeptId() {
         return deptId;
     }
 

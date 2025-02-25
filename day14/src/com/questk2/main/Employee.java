@@ -3,10 +3,10 @@ package com.questk2.main;
 import java.util.*;
 
 public class Employee {
-    private int empId;
+    private Integer empId;
     private String empName;
     private Department department;
-    private double salary;
+    private Double salary;
     private Date empJoinDate;
 
     /**

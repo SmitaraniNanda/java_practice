@@ -6,7 +6,7 @@ public class Employee {
     private Integer empId;
     private String empName;
     private Department department;
-    private Double salary;
+    private Integer salary;
     private Date empJoinDate;
 
     /**
@@ -15,10 +15,10 @@ public class Employee {
      * @param empId       The ID of the employee.
      * @param empName     The name of the employee.
      * @param department  The department to which the employee belongs.
-     * @param salary      The salary of the employee.
+     * @param i      The salary of the employee.
      * @param empJoinDate The join date of the employee.
      */
-    public Employee(int empId, String empName, Department department, double salary, Date empJoinDate) {
+    public Employee(Integer empId, String empName, Department department, Integer salary, Date empJoinDate) {
         this.empId = empId;
         this.empName = empName;
         this.department = department;
@@ -31,7 +31,7 @@ public class Employee {
      *
      * @return The employee ID.
      */
-    public int getEmpId() {
+    public Integer getEmpId() {
         return empId;
     }
 
@@ -40,7 +40,7 @@ public class Employee {
      *
      * @param empId The new employee ID.
      */
-    public void setEmpId(int empId) {
+    public void setEmpId(Integer empId) {
         this.empId = empId;
     }
 
@@ -85,7 +85,7 @@ public class Employee {
      *
      * @return The employee's salary.
      */
-    public double getSalary() {
+    public Integer getSalary() {
         return salary;
     }
 
@@ -94,7 +94,7 @@ public class Employee {
      *
      * @param salary The new salary.
      */
-    public void setSalary(double salary) {
+    public void setSalary(Integer salary) {
         this.salary = salary;
     }
 
@@ -122,7 +122,7 @@ public class Employee {
      *
      * @return A string representing the employee's details.
      */
-    @Override
+    
     public String toString() {
         return "Employee{" +
                 "empId=" + empId +

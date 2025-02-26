@@ -31,45 +31,45 @@ public class Company {
 
     /**
      * Deletes an employee from the specified department based on employee ID.
-     * Employees are re-sorted by name after deletion.
      *
-     * @param empId The ID of the employee to be deleted.
+     * @param empId    The ID of the employee to be deleted.
      * @param deptName The name of the department from which the employee will be removed.
-     * @throws CustomException If the department doesn't exist or no employees are found in the department.
-     *                         Also thrown if the employee is not found.
+     * @throws CustomException If the department or employee is not found.
      */
     public void deleteEmployee(Integer empId, String deptName) throws CustomException {
         List<Employee> employees = departmentMap.get(deptName);
         if (employees == null || employees.isEmpty()) {
             throw new CustomException("Department not found or no employees in department");
         }
-        boolean removed = employees.removeIf(emp -> emp.getEmpId() == empId);
+
+        boolean removed = employees.removeIf(emp -> emp.getEmpId().equals(empId));
         if (!removed) {
             throw new CustomException("Employee not found");
         }
+
         employees.sort(Comparator.comparing(Employee::getEmpName));
         printEmployees(deptName);
     }
 
     /**
      * Updates an employee's information, including their name and salary.
-     * The employee is re-sorted by name after the update.
      *
-     * @param empId The ID of the employee to be updated.
-     * @param deptName The name of the department the employee belongs to.
-     * @param newName The new name for the employee.
+     * @param empId     The ID of the employee to be updated.
+     * @param deptName  The name of the department the employee belongs to.
+     * @param newName   The new name for the employee.
      * @param newSalary The new salary for the employee.
-     * @throws CustomException If the department is not found or the employee doesn't exist.
+     * @throws CustomException If the department or employee is not found.
      */
-    public void updateEmployee(Integer empId, String deptName, String newName, double newSalary) throws CustomException {
+    public void updateEmployee(Integer empId, String deptName, String newName, Integer newSalary) throws CustomException {
         List<Employee> employees = departmentMap.get(deptName);
         if (employees == null || employees.isEmpty()) {
             throw new CustomException("Department not found or no employees in department");
         }
+
         for (Employee emp : employees) {
-            if (emp.getEmpId() == empId) {
-                employees.remove(emp);
-                employees.add(new Employee(empId, newName, emp.getDepartment(), newSalary, emp.getEmpJoinDate()));
+            if (emp.getEmpId().equals(empId)) {
+                emp.setEmpName(newName);
+                emp.setSalary(newSalary);
                 employees.sort(Comparator.comparing(Employee::getEmpName));
                 printEmployees(deptName);
                 return;
@@ -82,32 +82,29 @@ public class Company {
      * Retrieves and prints all employees in a department, sorted by their join date.
      *
      * @param deptName The name of the department whose employees should be retrieved.
-     * @throws CustomException If the department is not found or there are no employees in the department.
+     * @throws CustomException If the department is not found or has no employees.
      */
     public void getEmployeesByJoinDate(String deptName) throws CustomException {
         List<Employee> employees = departmentMap.get(deptName);
         if (employees == null || employees.isEmpty()) {
             throw new CustomException("Department not found or no employees in department");
         }
+
         employees.stream()
-        .sorted(Comparator.comparing(Employee::getEmpJoinDate).reversed())
-        .forEach(System.out::println);
- } 
+                .sorted(Comparator.comparing(Employee::getEmpJoinDate).reversed())
+                .forEach(System.out::println);
+    }
 
     /**
      * Demonstrates handling a ConcurrentModificationException by modifying a list while iterating over it.
-     * Attempts to remove an employee from the list while iterating, which leads to a ConcurrentModificationException.
      */
     public void testConcurrentModification() {
         List<Employee> employees = new ArrayList<>();
         employees.add(new Employee(1, "Smita", new Department(1, "HR"), 50000, new Date()));
         employees.add(new Employee(2, "Puspa", new Department(1, "HR"), 55000, new Date()));
+
         try {
-            for (Employee emp : employees) {
-                if (emp.getEmpId() == 1) {
-                    employees.remove(emp); // This will cause ConcurrentModificationException
-                }
-            }
+            employees.removeIf(emp -> emp.getEmpId().equals(1)); // Safe removal
         } catch (ConcurrentModificationException e) {
             System.out.println("Concurrent modification detected! Handling the exception...");
         }

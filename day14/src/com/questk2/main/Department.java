@@ -57,7 +57,7 @@ public class Department {
      *
      * @return A string representing the department's details.
      */
-    @Override
+    
     public String toString() {
         return "Department{" +
                 "deptId=" + deptId +

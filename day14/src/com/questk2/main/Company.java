@@ -91,7 +91,7 @@ public class Company {
         }
 
         employees.stream()
-                .sorted(Comparator.comparing(Employee::getEmpJoinDate).reversed())
+                .sorted(Comparator.comparing(Employee::getEmpJoinDate))
                 .forEach(System.out::println);
     }
 
@@ -119,4 +119,23 @@ public class Company {
         System.out.println("Employees in " + deptName + " sorted by name:");
         departmentMap.get(deptName).forEach(System.out::println);
     }
+    public void sortEmployees(String deptName) {
+    		// Get the list of employees in the given department
+    		List<Employee> employeesInDepartment = departmentMap.get(deptName);
+     
+    		if (employeesInDepartment != null) {
+    			employeesInDepartment.sort(Comparator.comparing(Employee::getEmpName) // First sort by name
+    					.thenComparing(Employee::getSalary) // If names are the same, sort by salary
+    					.thenComparing(Employee::getEmpJoinDate) // If both name and salary are the same, sort by join date
+    			);
+     
+    			// Print the sorted list of employees
+    			System.out.println("\nEmployees in " + deptName + " department:");
+    			for (Employee emp : employeesInDepartment) {
+    				System.out.println(emp);
+    			}
+    		} else {
+    			System.out.println("Department not found: " + deptName);
+    		}
+    	}
 }

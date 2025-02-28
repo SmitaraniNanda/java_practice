@@ -36,6 +36,10 @@ public class EmployeeManagement {
 
             // Testing concurrent modification handling
             company.testConcurrentModification();
+            
+            //shorting employees department by name, salary,joinDate
+            company.sortEmployees("HR");
+            
         } catch (CustomException e) {
             System.out.println("Error: " + e.getMessage());
         }

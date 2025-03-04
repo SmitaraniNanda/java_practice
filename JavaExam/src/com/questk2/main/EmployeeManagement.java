@@ -49,11 +49,11 @@ package com.questk2.main;
 	                departmentMap.computeIfAbsent(department, k -> new ArrayList<>()).add(employee);
 	            } catch (InvalidAgeException | LowSalaryException e) {
 	                System.out.println("Error: " + e.getMessage() + " Please re-enter details.");
-	                emp--;
+	                emp--;// Decrement the counter to retry the current iteration
 	            } catch (InputMismatchException e) {
 	                System.out.println("Invalid input. Please enter the correct format.");
-	                scanner.nextLine();
-	                emp--;
+	                scanner.nextLine();// Clear the invalid input
+	                emp--;// Decrement the counter to retry the current iteration
 	            }
 	        }
 

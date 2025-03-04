@@ -1,18 +1,28 @@
 package com.questk2.main;
 
 public class Employee {
-	    protected Integer id;
-	    protected String name;
-	    protected Integer age;
-	    protected Double salary;
-	    protected String department;
+	    private int id;
+	    private String name;
+	    private int age;
+	    private double salary;
+	    private String department;
 
-	    public Employee(Integer id, String name, Integer age, Double salary, String department) throws InvalidAgeException, LowSalaryException {
+	    /**
+	     * Constructor for Employee class
+	     * @param id Employee ID
+	     * @param name Employee Name
+	     * @param age Employee Age
+	     * @param salary Employee Salary
+	     * @param department Employee Department
+	     * @throws InvalidAgeException if age is below 18
+	     * @throws LowSalaryException if salary is below 30,000
+	     */
+	    public Employee(int id, String name, int age, double salary, String department) throws InvalidAgeException, LowSalaryException {
 	        if (age < 18) {
-	            throw new InvalidAgeException("Age must be at least 18.");
+	            throw new InvalidAgeException("Age must be 18 or older.");
 	        }
 	        if (salary < 30000) {
-	            throw new LowSalaryException("Salary must be at least 30000.");
+	            throw new LowSalaryException("Salary must be at least 30,000.");
 	        }
 	        this.id = id;
 	        this.name = name;
@@ -21,33 +31,40 @@ public class Employee {
 	        this.department = department;
 	    }
 
-	    public Integer getId() { 
-	    	return id; 
-	    	}
-	    public String getName() {
-	    	return name;
-	    	}
-	    public Integer getAge() { 
-	    	return age;
-	    	}
-	    public Double getSalary() { 
-	    	return salary;
-	    	}
-	    public String getDepartment() { 
-	    	return department; 
-	    	}
+	    // Getters
+	    public int getId() { return id; }
+	    public String getName() { return name; }
+	    public int getAge() { return age; }
+	    public double getSalary() { return salary; }
+	    public String getDepartment() { return department; }
 
-	    public void setSalary(Double salary) throws LowSalaryException {
+	    /**
+	     * Sets the age of the employee
+	     * @param age New age of the employee
+	     * @throws InvalidAgeException if age is below 18
+	     */
+	    public void setAge(int age) throws InvalidAgeException {
+	        if (age < 18) {
+	            throw new InvalidAgeException("Age must be 18 or older.");
+	        }
+	        this.age = age;
+	    }
+
+	    /**
+	     * Sets the salary of the employee
+	     * @param salary New salary of the employee
+	     * @throws LowSalaryException if salary is below 30,000
+	     */
+	    public void setSalary(double salary) throws LowSalaryException {
 	        if (salary < 30000) {
-	            throw new LowSalaryException("Salary must be at least 30000.");
+	            throw new LowSalaryException("Salary must be at least 30,000.");
 	        }
 	        this.salary = salary;
 	    }
 
+	    // ToString method
 	    @Override
 	    public String toString() {
-	        return "Employee [ID=" + id + ", Name=" + name + ", Age=" + age + ", Salary=" + salary + ", Department=" + department + "]";
+	        return "Employee [ID: " + id + ", Name: " + name + ", Age: " + age + ", Salary: " + salary + ", Department: " + department + "]";
 	    }
-	
- 
-}
+	}

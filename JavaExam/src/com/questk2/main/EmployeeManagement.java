@@ -1,73 +1,79 @@
 package com.questk2.main;
 
-	import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
-	public class EmployeeManagement {
-	    public static void main(String[] args) {
-	        Scanner scanner = new Scanner(System.in);
-	        List<Employee> employees = new ArrayList<>();
-	        Map<String, List<Employee>> departmentMap = new HashMap<>();
+// Main Class
+public class EmployeeManagement {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        List<Employee> employees = new ArrayList<>();
+        Map<String, List<Employee>> departmentMap = new HashMap<>();
+        
+        System.out.print("Enter number of employees: ");
+        int n = scanner.nextInt();
 
-	        System.out.print("Enter the number of employees: ");
-	        Integer n = scanner.nextInt();
-	        scanner.nextLine();
+        for (int emp = 0; emp < n; emp++) {
+            try {
+                System.out.println("Enter details for Employee " + (emp + 1));
+                System.out.print("ID: ");
+                int id = scanner.nextInt();
+                scanner.nextLine(); // Consume newline
+                System.out.print("Name: ");
+                String name = scanner.nextLine();
+                System.out.print("Age: ");
+                int age = scanner.nextInt();
+                System.out.print("Salary: ");
+                double salary = scanner.nextDouble();
+                scanner.nextLine(); // Consume newline
+                System.out.print("Department: ");
+                String department = scanner.nextLine();
 
-	        for (Integer emp = 0; emp < n; emp++) {
-	            try {
-	                System.out.println("\nEnter details for Employee " + ": ");
-	                System.out.print("Enter ID: ");
-	                Integer id = scanner.nextInt();
-	                scanner.nextLine();
-	                
-	                System.out.print("Enter Name: ");
-	                String name = scanner.nextLine();
+                System.out.print("Is this employee a Manager? (yes/no): ");
+                String isManager = scanner.nextLine();
 
-	                System.out.print("Enter Age: ");
-	                Integer age = scanner.nextInt();
+                Employee employee;
+                if (isManager.equalsIgnoreCase("yes")) {
+                    System.out.print("Enter team size: ");
+                    int teamSize = scanner.nextInt();
+                    employee = new Manager(id, name, age, salary, department, teamSize);
+                } else {
+                    employee = new Employee(id, name, age, salary, department);
+                }
+                
+                employees.add(employee);
+                departmentMap.computeIfAbsent(department, k -> new ArrayList<>()).add(employee);
 
-	                System.out.print("Enter Salary: ");
-	                Double salary = scanner.nextDouble();
-	                scanner.nextLine();
+            } catch (InvalidAgeException | LowSalaryException e) {
+                System.out.println("Error: " + e.getMessage());
+               
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter correct values.");
+                scanner.next(); // Clear buffer
+               
+            }
+        }
 
-	                System.out.print("Enter Department: ");
-	                String department = scanner.nextLine();
+        // Sorting Employees by Salary in Descending Order
+        employees.sort((e1, e2) -> Double.compare(e2.getSalary(), e1.getSalary()));
+        
+        // Displaying Employees
+        System.out.println("\nEmployees Sorted by Salary (Descending Order):");
+        for (Employee emp : employees) {
+            System.out.println(emp);
+        }
 
-	                System.out.print("Is this employee a Manager? (yes/no): ");
-	                String isManager = scanner.nextLine();
-
-	                Employee employee;
-	                if (isManager.equalsIgnoreCase("yes")) {
-	                    System.out.print("Enter Team Size: ");
-	                    int teamSize = scanner.nextInt();
-	                    scanner.nextLine();
-	                    employee = new Manager(id, name, age, salary, department, teamSize);
-	                } else {
-	                    employee = new Employee(id, name, age, salary, department);
-	                }
-
-	                employees.add(employee);
-	                departmentMap.computeIfAbsent(department, k -> new ArrayList<>()).add(employee);
-	            } catch (InvalidAgeException | LowSalaryException e) {
-	                System.out.println("Error: " + e.getMessage() + " Please re-enter details.");
-	                emp--;// Decrement the counter to retry the current iteration
-	            } catch (InputMismatchException e) {
-	                System.out.println("Invalid input. Please enter the correct format.");
-	                scanner.nextLine();// Clear the invalid input
-	                emp--;// Decrement the counter to retry the current iteration
-	            }
-	        }
-
-	        // Sorting employees by salary in descending order
-	        employees.sort((e1, e2) -> Double.compare(e2.getSalary(), e1.getSalary()));
-
-	        // Display sorted employees
-	        System.out.println("\nEmployees sorted by salary (Descending Order):");
-	        for (Employee e : employees) {
-	            System.out.println(e);
-	        }
-	        
-	        scanner.close();
-	    }
-	
-
+        // Grouping Employees by Department
+        System.out.println("\nEmployees Grouped by Department:");
+        for (Map.Entry<String, List<Employee>> entry : departmentMap.entrySet()) {
+            System.out.println("Department: " + entry.getKey());
+            for (Employee emp : entry.getValue()) {
+                System.out.println("  " + emp);
+            }
+        }
+    }
 }

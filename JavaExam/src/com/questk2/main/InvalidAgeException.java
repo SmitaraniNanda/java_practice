@@ -1,8 +1,14 @@
 package com.questk2.main;
 
-public class InvalidAgeException extends Exception {
-	public InvalidAgeException(String message) {
-		super(message);
-	}
+import java.util.*;
 
+//Custom Exception for Invalid Age
+class InvalidAgeException extends Exception {
+ /**
+  * Constructor for InvalidAgeException
+  * @param message Error message to be displayed
+  */
+ public InvalidAgeException(String message) {
+     super(message);
+ }
 }

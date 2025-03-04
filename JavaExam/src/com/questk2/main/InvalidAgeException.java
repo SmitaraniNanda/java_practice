@@ -1,7 +1,5 @@
 package com.questk2.main;
 
-import java.util.*;
-
 //Custom Exception for Invalid Age
 class InvalidAgeException extends Exception {
  /**

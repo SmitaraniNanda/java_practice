@@ -15,11 +15,11 @@ public class EmployeeManagement {
         Map<String, List<Employee>> departmentMap = new HashMap<>();
         
         System.out.print("Enter number of employees: ");
-        int n = scanner.nextInt();
+        int number = scanner.nextInt();
 
-        for (int emp = 0; emp < n; emp++) {
+        for (int emp = 0; emp < number; emp++) {
             try {
-                System.out.println("Enter details for Employee " + (emp + 1));
+                System.out.println("Enter details for Employee ");
                 System.out.print("ID: ");
                 int id = scanner.nextInt();
                 scanner.nextLine(); // Consume newline
@@ -46,7 +46,7 @@ public class EmployeeManagement {
                 }
                 
                 employees.add(employee);
-                departmentMap.computeIfAbsent(department, k -> new ArrayList<>()).add(employee);
+                departmentMap.computeIfAbsent(department, departmentmap -> new ArrayList<>()).add(employee);
 
             } catch (InvalidAgeException | LowSalaryException e) {
                 System.out.println("Error: " + e.getMessage());

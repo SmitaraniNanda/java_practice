@@ -53,7 +53,7 @@ public class EmployeeManagement {
                
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input. Please enter correct values.");
-                scanner.next(); // Clear buffer
+         
                
             }
         }

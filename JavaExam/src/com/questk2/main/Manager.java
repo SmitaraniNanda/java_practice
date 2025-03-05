@@ -13,16 +13,15 @@ class Manager extends Employee {
   * @param salary Employee Salary
   * @param department Employee Department
   * @param teamSize Size of the team managed
-  * @throws InvalidAgeException if age is below 18
-  * @throws LowSalaryException if salary is below 30,000
+ * @throws Exception 
   */
- public Manager(int id, String name, int age, double salary, String department, int teamSize) throws InvalidAgeException, LowSalaryException {
+ public Manager(Integer id, String name, Integer age, Double salary, String department, Integer teamSize) throws Exception {
      super(id, name, age, salary, department);
      this.teamSize = teamSize;
  }
 
  public int getTeamSize() { return teamSize; }
- public void setTeamSize(int teamSize) { this.teamSize = teamSize; }
+ public void setTeamSize(Integer teamSize) { this.teamSize = teamSize; }
 
  @Override
  public String toString() {

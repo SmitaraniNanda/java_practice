@@ -1,10 +1,10 @@
 package com.questk2.main;
 
 public class Employee {
-	    private int id;
+	    private Integer id;
 	    private String name;
-	    private int age;
-	    private double salary;
+	    private Integer age;
+	    private Double salary;
 	    private String department;
 
 	    /**
@@ -17,7 +17,7 @@ public class Employee {
 	     * @throws InvalidAgeException if age is below 18
 	     * @throws LowSalaryException if salary is below 30,000
 	     */
-	    public Employee(int id, String name, int age, double salary, String department) throws InvalidAgeException, LowSalaryException {
+	    public Employee(Integer id, String name, Integer age, Double salary, String department) throws Exception {
 	        if (age < 18) {
 	            throw new InvalidAgeException("Age must be 18 or older.");
 	        }
@@ -32,10 +32,10 @@ public class Employee {
 	    }
 
 	    // Getters
-	    public int getId() { return id; }
+	    public Integer getId() { return id; }
 	    public String getName() { return name; }
-	    public int getAge() { return age; }
-	    public double getSalary() { return salary; }
+	    public Integer getAge() { return age; }
+	    public Double getSalary() { return salary; }
 	    public String getDepartment() { return department; }
 
 	    /**
@@ -43,7 +43,7 @@ public class Employee {
 	     * @param age New age of the employee
 	     * @throws InvalidAgeException if age is below 18
 	     */
-	    public void setAge(int age) throws InvalidAgeException {
+	    public void setAge(Integer age) throws InvalidAgeException {
 	        if (age < 18) {
 	            throw new InvalidAgeException("Age must be 18 or older.");
 	        }
@@ -55,7 +55,7 @@ public class Employee {
 	     * @param salary New salary of the employee
 	     * @throws LowSalaryException if salary is below 30,000
 	     */
-	    public void setSalary(double salary) throws LowSalaryException {
+	    public void setSalary(Double salary) throws LowSalaryException {
 	        if (salary < 30000) {
 	            throw new LowSalaryException("Salary must be at least 30,000.");
 	        }

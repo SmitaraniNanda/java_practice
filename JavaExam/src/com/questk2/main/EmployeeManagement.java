@@ -9,26 +9,26 @@ import java.util.Scanner;
 
 // Main Class
 public class EmployeeManagement {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
         List<Employee> employees = new ArrayList<>();
         Map<String, List<Employee>> departmentMap = new HashMap<>();
         
         System.out.print("Enter number of employees: ");
-        int number = scanner.nextInt();
+        Integer number = scanner.nextInt();
 
-        for (int emp = 0; emp < number; emp++) {
+        for (Integer emp = 0; emp < number; emp++) {
             try {
                 System.out.println("Enter details for Employee ");
                 System.out.print("ID: ");
-                int id = scanner.nextInt();
+                Integer id = scanner.nextInt();
                 scanner.nextLine(); // Consume newline
                 System.out.print("Name: ");
                 String name = scanner.nextLine();
                 System.out.print("Age: ");
-                int age = scanner.nextInt();
+                Integer age = scanner.nextInt();
                 System.out.print("Salary: ");
-                double salary = scanner.nextDouble();
+                Double salary = scanner.nextDouble();
                 scanner.nextLine(); // Consume newline
                 System.out.print("Department: ");
                 String department = scanner.nextLine();
@@ -39,11 +39,13 @@ public class EmployeeManagement {
                 Employee employee;
                 if (isManager.equalsIgnoreCase("yes")) {
                     System.out.print("Enter team size: ");
-                    int teamSize = scanner.nextInt();
+                    Integer teamSize = scanner.nextInt();
+                    scanner.nextLine(); // Consume the newline after nextInt()
                     employee = new Manager(id, name, age, salary, department, teamSize);
                 } else {
                     employee = new Employee(id, name, age, salary, department);
                 }
+
                 
                 employees.add(employee);
                 departmentMap.computeIfAbsent(department, departmentmap -> new ArrayList<>()).add(employee);

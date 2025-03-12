@@ -5,4 +5,28 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>MavenExample</name>
   <description>Example of Maven</description>
+  <dependencies>
+  <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-api</artifactId>
+    <version>2.0.17</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+<dependency>
+    <groupId>org.postgresql</groupId>
+    <artifactId>postgresql</artifactId>
+    <version>42.7.5</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.apache.maven.surefire/surefire-booter -->
+<dependency>
+    <groupId>org.apache.maven.surefire</groupId>
+    <artifactId>surefire-booter</artifactId>
+    <version>3.5.2</version>
+</dependency>
+
+
+  </dependencies>
 </project>

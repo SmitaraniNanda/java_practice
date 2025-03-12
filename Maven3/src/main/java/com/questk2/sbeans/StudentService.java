@@ -1,7 +1,11 @@
 package com.questk2.sbeans;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 @Service
 public class StudentService {
@@ -10,20 +14,30 @@ public class StudentService {
     @Autowired
     private Student student;
 
-    // Constructor Injection
+    // Constructor Injection using @Value
     private final String schoolName;
 
     @Autowired
-    public StudentService(String schoolName) {
+    public StudentService(@Value("QuestK2 School") String schoolName) {
         this.schoolName = schoolName;
     }
 
-    // Setter Injection
+    // Setter Injection using @Value
     private String courseName;
 
     @Autowired
-    public void setCourseName(String courseName) {
+    public void setCourseName(@Value("Spring Framework") String courseName) {
         this.courseName = courseName;
+    }
+
+    @PostConstruct
+    public void init() {
+        System.out.println("StudentService Bean: @PostConstruct Called");
+    }
+
+    @PreDestroy
+    public void destroy() {
+        System.out.println("StudentService Bean: @PreDestroy (Cleanup) Called");
     }
 
     public void displayStudentDetails() {

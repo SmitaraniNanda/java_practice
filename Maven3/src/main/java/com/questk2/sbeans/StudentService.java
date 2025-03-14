@@ -37,7 +37,7 @@ public class StudentService {
 
     @PreDestroy
     public void destroy() {
-        System.out.println("StudentService Bean: @PreDestroy (Cleanup) Called");
+        System.out.println("StudentService Bean: @PreDestroy Called");
     }
 
     public void displayStudentDetails() {

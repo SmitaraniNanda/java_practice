@@ -15,12 +15,12 @@ public class Student {
 
     @PostConstruct
     public void init() {
-        System.out.println("Student Bean: @PostConstruct (Initialization) Called");
+        System.out.println("Student Bean: @PostConstruct  Called");
     }
 
     @PreDestroy
     public void destroy() {
-        System.out.println("Student Bean: @PreDestroy (Cleanup) Called");
+        System.out.println("Student Bean: @PreDestroy  Called");
     }
 
     public String getName() {

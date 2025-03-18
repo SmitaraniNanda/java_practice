@@ -7,9 +7,25 @@
   <properties>
 		<java.version>1.8</java.version>
 	</properties>
-
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-framework-bom</artifactId>
+            <version>5.3.31</version> 
+            <scope>import</scope>
+            <type>pom</type>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
    
    <dependencies>
+   <dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-core</artifactId>
+    <version>5.3.31</version>
+</dependency>
+
   <!--
 		https://mvnrepository.com/artifact/org.springframework/spring-context -->
 		<dependency>

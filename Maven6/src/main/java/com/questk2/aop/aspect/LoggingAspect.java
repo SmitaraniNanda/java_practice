@@ -58,10 +58,10 @@ public class LoggingAspect {
     /*
     @Pointcut("execution(* com.questk2.aop.service.MyService.*(..))") → Matches all methods in MyService.
     @Before → Runs before the method executes.
-    🔹 @After → Runs after the method executes (regardless of success or failure).
-    🔹 @Around → Controls execution, allowing modification of inputs/outputs.
-    🔹 @AfterReturning → Captures return values of successful method executions.
-    🔹 @AfterThrowing → Runs when a method throws an exception.
+     @After → Runs after the method executes (regardless of success or failure).
+     @Around → Controls execution, allowing modification of inputs/outputs.
+     @AfterReturning → Captures return values of successful method executions.
+     @AfterThrowing → Runs when a method throws an exception.
     */
     
     

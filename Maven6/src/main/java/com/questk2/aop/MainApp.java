@@ -1,5 +1,4 @@
-package com.questk2.aop.main;
-
+package com.questk2.aop;
 
 
 import org.springframework.context.ApplicationContext;

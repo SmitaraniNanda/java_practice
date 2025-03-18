@@ -39,10 +39,10 @@ public List<User>getAllUser(){
 		
 	}
 	@PutMapping("/user/update/{id}")
-	public User  updateUser(@PathVariable int id) {
+	public User  updateUser(@PathVariable int id,@RequestBody User userDetails) {
 	User user= repo.findById(id).get();
-	user.setName("Smita");
-	user.setId(80);
+	user.setName(userDetails.getName()); // Updating name from request body
+    user.setEmail(userDetails.getEmail()); 
 	repo.save(user);
 		return user;
 	}

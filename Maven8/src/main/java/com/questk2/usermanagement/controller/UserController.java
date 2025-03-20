@@ -2,8 +2,10 @@ package com.questk2.usermanagement.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.questk2.usermanagement.entity.User;
+import com.questk2.usermanagement.entity.UserRole;
 import com.questk2.usermanagement.repository.UserRepository;
 
 
@@ -21,6 +24,9 @@ import com.questk2.usermanagement.repository.UserRepository;
 public class UserController {
 	@Autowired
 	UserRepository repo;
+	
+
+	
 @GetMapping("/user")
 public List<User>getAllUser(){
 	List<User>user=repo.findAll();
@@ -32,12 +38,13 @@ public List<User>getAllUser(){
 		return user;
 		
 	}
-	@PostMapping("/user/add")
-	@ResponseStatus(code=HttpStatus.CREATED)
-	public void createStudent(@RequestBody User user) {
-		repo.save(user);
-		
+	@PostMapping(value = "/user/add")
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public void createuser(@RequestBody User user,@RequestBody UserRole userRole) {
+	    repo.save(user);
+	    repo.save(userRole);
 	}
+
 	@PutMapping("/user/update/{id}")
 	public User  updateUser(@PathVariable int id,@RequestBody User userDetails) {
 	User user= repo.findById(id).get();

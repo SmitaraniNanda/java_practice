@@ -2,8 +2,12 @@ package com.questk2.usermanagement.entity;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import java.util.Set;
+
 @Entity
-@Table(name = "users")  // Changed table name to "users" (plural for best practice)
+@Table(name = "users")
 public class User {
 
     @Id
@@ -17,10 +21,15 @@ public class User {
     @Column(name = "user_email", nullable = false, unique = true)
     private String email;
 
-    // Default Constructor
-    public User() {}
+    
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private Set<UserRole> roles;
+    // Constructors
+    public User() {
+    	
+    }
 
-    // Parameterized Constructor
     public User(String name, String email) {
         this.name = name;
         this.email = email;
@@ -49,6 +58,17 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Set<UserRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<UserRole> roles) {
+        this.roles = roles;
+        for (UserRole role : roles) {
+            role.setUser(this);
+        }
     }
 
     @Override

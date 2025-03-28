@@ -1,0 +1,74 @@
+
+A React + Spring Boot web application where different types of users have different access 
+levels.
+Database design:
+1.User (Id, Name, email, department, phone number, password)
+2.User Role (Id, UserId, Role)
+3.Ticket (ID, Title, Description, PriorityId, StatusId, Created By(Fk to User), Created 
+Date, Modified Date, Assigned To(FK to User), ticket comment, is deleted, delete date
+4.Ticket Priority (Id, description) foreign key to Ticket. Values are :
+1. Critical
+2. High
+3. Medium
+4. Low
+5.Ticket Status (Id, description) foreign key to Ticket. Values are:
+1. Open
+2. In Progress
+3. Closed
+4. Resolved
+• Manually insert an Admin User into the database user table 
+o Username: admin
+o Password: password
+o Email : admin123@questk2.com
+User Setup Screen:
+• User Creation Screen/ Sign-up page: A form to create users with fields for 
+username , password , name, email, phone, department, role.
+o Role can be multiple. Use checkbox
+• Login Page: Allows users to log in with username and password. A link in the 
+bottom to do sign up.
+Ticket Management
+1. Create ticket:
+a. User can create ticket and add a comment. Comment is optional.
+b. Categorization: Assign priorities (Low, Medium, High, Critical).
+c. Assign tickets to specific user. User is a dropdown where data is from user 
+table.
+d. Status: Open.
+e. Comment System: Users and agents can add comments to tickets.
+f. Don’t show Created Date and Modified Date. When ticket is created Created 
+Date is current date and time and Modified Date is null.
+2. View:
+a. Show a dashboard of all ticket
+b. Fields: ID, Title, Description, Priority, Status, Created By, Created Date, 
+Modified Date, Assigned To, is deleted, comment
+c. Admin Can see all tickets for all users
+d. Specific user can see all tickets created by his own
+e. Sample dashboard
+Update:
+a. User can update the ticket fields and save. When save Modified Date should 
+be current date. Don’t change Created Date.
+b. Only change Title, Description, Priority, Status fields.
+c. Admin Can edit all tickets for all users.
+d. Specific user can edit all tickets created by his own
+4. delete:
+a. User can delete a ticket. When save Modified Date should be current date. 
+Don’t change Created Date. And is_ deleted should be true. Delete date 
+should be current date.
+b. Admin Can delete all tickets for all users.
+c. Specific user can delete all tickets created by his own
+d. Show a warning message before deleting the ticket
+Tech Stack
+Frontend (React + HTML + CSS):
+• React with React Router for navigation.
+Backend (Spring Boot + PostgreSQL):
+• Spring Boot (REST API)
+• PostgreSQL (Database)
+Special Features (Optional but good to have)
+• Email Notifications: Send email updates to ticket user and admins for any ticket 
+update using Spring Mail/java mail
+Important points:
+• Code should be clean and properly commented and as per coding standards.
+• Proper Commenting & Documentation
+• Each code block should have a description explaining its functionality.
+• Implement Swagger for API documentation.
+• Provide SQL scripts to create tables and initialize data
+give me the flow chat with all field how to do basic on words 

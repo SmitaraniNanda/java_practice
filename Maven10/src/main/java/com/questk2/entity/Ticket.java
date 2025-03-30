@@ -6,52 +6,53 @@ import javax.persistence.*;
 @Entity
 @Table(name = "ticket")
 public class Ticket {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "title", nullable = false)
     private String title;
-    
+
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
-    
+
     @ManyToOne
     @JoinColumn(name = "priority_id", nullable = false)
     private TicketPriority priority;
-    
+
     @ManyToOne
     @JoinColumn(name = "status_id", nullable = false)
     private TicketStatus status;
-    
+
     @ManyToOne
     @JoinColumn(name = "created_by", nullable = false, updatable = false)
     private User createdBy;
-    
+
     @Column(name = "created_date", nullable = false, updatable = false)
     private LocalDateTime createdDate;
-    
+
     @Column(name = "modified_date")
     private LocalDateTime modifiedDate;
-    
+
     @ManyToOne
-    @JoinColumn(name = "assigned_to")
+    @JoinColumn(name = "assigned_to", nullable = true)
     private User assignedTo;
-    
-    @Column(name = "ticket_comment", columnDefinition = "TEXT")
+
+    @Column(name = "ticket_comment", columnDefinition = "TEXT", nullable = true)
     private String ticketComment;
-    
+
     @Column(name = "is_deleted", nullable = false)
     private boolean deleted = false;
-    
-    @Column(name = "delete_date")
+
+    @Column(name = "delete_date", nullable = true)
     private LocalDateTime deleteDate;
 
     // Auto-set timestamps
     @PrePersist
     protected void onCreate() {
         this.createdDate = LocalDateTime.now();
+        this.modifiedDate = LocalDateTime.now(); // Ensure modified date is set initially
     }
 
     @PreUpdate
@@ -112,8 +113,16 @@ public class Ticket {
         return createdDate;
     }
 
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
     public LocalDateTime getModifiedDate() {
         return modifiedDate;
+    }
+
+    public void setModifiedDate(LocalDateTime modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 
     public User getAssignedTo() {
@@ -147,10 +156,6 @@ public class Ticket {
     public void setDeleteDate(LocalDateTime deleteDate) {
         this.deleteDate = deleteDate;
     }
-    
-    public void setModifiedDate(LocalDateTime modifiedDate) {
-        this.modifiedDate = modifiedDate;
-    }
 
     @Override
     public String toString() {
@@ -159,6 +164,4 @@ public class Ticket {
                 + modifiedDate + ", assignedTo=" + assignedTo + ", ticketComment=" + ticketComment + ", deleted="
                 + deleted + ", deleteDate=" + deleteDate + "]";
     }
-
-	
 }

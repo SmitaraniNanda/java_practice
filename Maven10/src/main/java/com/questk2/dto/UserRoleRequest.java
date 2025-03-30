@@ -1,5 +1,7 @@
 package com.questk2.dto;
 
+import java.util.Set;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
@@ -27,7 +29,7 @@ public class UserRoleRequest {
     private String department;
 
     @Schema(description = "Role assigned to the user (e.g.- ADMIN, USER)")
-    private String role;
+    private Set<String> roles;
 
     /**
      * Gets the username.
@@ -129,15 +131,15 @@ public class UserRoleRequest {
      * Gets the role assigned to the user.
      * @return the role
      */
-    public String getRole() {
-        return role;
+    public Set<String> getRoles() {
+        return roles;
     }
 
     /**
      * Sets the role assigned to the user.
      * @param role the role to set
      */
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
     }
 }

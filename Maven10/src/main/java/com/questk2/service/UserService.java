@@ -1,6 +1,7 @@
 package com.questk2.service;
 
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -87,8 +88,12 @@ public class UserService {
 			user.setPhoneNumber(userRoleRequest.getPhoneNumber());
 			user.setDepartment(userRoleRequest.getDepartment());
 			user = userRepository.save(user);
-			UserRole userRole = new UserRole(user, userRoleRequest.getRole());
-			userRoleRepository.save(userRole);
+			
+			Set<String> roles = userRoleRequest.getRoles();
+            for(String role : roles) {
+            	UserRole userRole = new UserRole(user, role);
+    			userRoleRepository.save(userRole);
+            }
 			logger.info("Finished saving the user ");
 		} catch (Exception e) {
 			logger.info("Error while saving the user", e);
@@ -96,6 +101,55 @@ public class UserService {
 		}
 
 		return user;
+	}
+	
+	/**
+	 * Creates a new user along with an associated role.
+	 * 
+	 * @param userRoleRequest DTO containing user details and role information.
+	 * @return The newly created user.
+	 */
+	public User updateUser(Long id, UserRoleRequest userRoleRequest) {
+
+		if (null == id) {
+			throw new IllegalArgumentException("id should not be null");
+		}
+		if (null == userRoleRequest) {
+			throw new IllegalArgumentException("userRoleRequest should not be null");
+		}
+		String userName = userRoleRequest.getUserName();
+		if (null == userName) {
+			throw new IllegalArgumentException("userName should not be null");
+		}
+		String password = userRoleRequest.getPassword();
+		if (null == password) {
+			throw new IllegalArgumentException("password should not be null");
+		}
+		logger.info("Started update the user ");
+		User updateUser = null;
+		try {
+			updateUser = userRepository.findById(id).map(user -> {
+	            user.setDepartment(userRoleRequest.getDepartment());
+	            user.setEmail(userRoleRequest.getEmail());
+	            user.setUserName(userRoleRequest.getUserName());
+	            user.setPassword(userRoleRequest.getPassword());
+	            user.setPhoneNumber(userRoleRequest.getPhoneNumber());
+	            user.setName(userRoleRequest.getName());
+	            User updatedUser = userRepository.save(user);
+	            Set<String> roles = userRoleRequest.getRoles();
+	            for(String role : roles) {
+	            	UserRole userRole = userRoleRepository.findByUser(updatedUser).orElse(new UserRole(updatedUser, role));
+	                userRole.setRole(role);
+	                userRoleRepository.save(userRole);
+	            }
+	            return updatedUser;
+	        }).orElseThrow(() -> new RuntimeException("User not found: " + id));
+			logger.info("Finished saving the user ");
+		} catch (Exception e) {
+			logger.info("Error while update the user", e);
+			throw e;
+		}
+		return updateUser;
 	}
 
 	public List<User> getAllUsers() {

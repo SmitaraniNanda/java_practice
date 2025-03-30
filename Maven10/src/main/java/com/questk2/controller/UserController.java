@@ -1,6 +1,7 @@
 package com.questk2.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -114,22 +115,28 @@ public class UserController {
     @ApiResponse(responseCode = "404", description = "User not found.")
     @PutMapping("/users/update/{id}")
     public User updateUser(@PathVariable Long id, @RequestBody UserRoleRequest userRoleRequest) {
-        return userRepository.findById(id).map(user -> {
-            user.setDepartment(userRoleRequest.getDepartment());
-            user.setEmail(userRoleRequest.getEmail());
-            user.setUserName(userRoleRequest.getUserName());
-            user.setPassword(userRoleRequest.getPassword());
-            user.setPhoneNumber(userRoleRequest.getPhoneNumber());
-            user.setName(userRoleRequest.getName());
-            
-            User updatedUser = userRepository.save(user);
-            
-            UserRole userRole = userRoleRepository.findByUser(updatedUser).orElse(new UserRole(updatedUser, userRoleRequest.getRole()));
-            userRole.setRole(userRoleRequest.getRole());
-            userRoleRepository.save(userRole);
-            
-            return updatedUser;
-        }).orElseThrow(() -> new RuntimeException("User not found: " + id));
+    	if (null == userRoleRequest) {
+			throw new IllegalArgumentException("userRoleRequest should not be null");
+		}
+    	String userName = userRoleRequest.getUserName();
+    	if (null == userName) {
+			throw new IllegalArgumentException("userName should not be null");
+		}
+    	String password = userRoleRequest.getPassword();
+		if (null == password) {
+			throw new IllegalArgumentException("password should not be null");
+		}
+		logger.info("Started update the user ");
+		User user = null;
+		try {
+			user = userService.updateUser(id, userRoleRequest);
+			logger.info("Finished saving the user ");
+		} catch (Exception e) {
+			logger.info("Error while update the user", e);
+			throw e;
+		}
+
+		return user;
     }
     
     

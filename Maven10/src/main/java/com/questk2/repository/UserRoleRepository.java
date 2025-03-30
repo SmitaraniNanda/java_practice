@@ -1,5 +1,6 @@
 package com.questk2.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,5 +23,5 @@ public interface UserRoleRepository extends JpaRepository<UserRole, Long> {
      * @return An Optional containing the UserRole if found, otherwise empty.
      */
     Optional<UserRole> findByUser(User user);
-    Optional<UserRole> findByUserId(Long userId);
+    Optional<List<UserRole>> findByUserId(Long userId);
 }

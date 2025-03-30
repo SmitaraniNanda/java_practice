@@ -4,14 +4,42 @@ import java.time.LocalDateTime;
 
 import com.questk2.entity.TicketPriority;
 import com.questk2.entity.TicketStatus;
+import com.questk2.entity.User;
 
 public class TicketDTO {
     private String title;
     private String description;
     private TicketPriority priority;
     private TicketStatus status;
+    private String ticketComment;
+    private User createdBy;
+    private User assignedTo;
 
-    // Getters and Setters
+    public String getTicketComment() {
+		return ticketComment;
+	}
+
+	public void setTicketComment(String ticketComment) {
+		this.ticketComment = ticketComment;
+	}
+
+	public User getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public User getAssignedTo() {
+		return assignedTo;
+	}
+
+	public void setAssignedTo(User assignedTo) {
+		this.assignedTo = assignedTo;
+	}
+
+	// Getters and Setters
     public String getTitle() {
         return title;
     }

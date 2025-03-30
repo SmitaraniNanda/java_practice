@@ -3,6 +3,7 @@ package com.questk2.service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,39 +46,6 @@ public class TicketService {
     @Autowired
     private UserRepository userRepository;
 
-    /**
-     * Creates a new ticket.
-     */
-    @Transactional
-    public Ticket createTicket(String title, String description, Long priorityId, Long statusId, Long createdById) {
-        try {
-            logger.info("Creating a new ticket: {}", title);
-
-            TicketPriority priority = ticketPriorityRepository.findById(priorityId)
-                .orElseThrow(() -> new RuntimeException("Priority not found"));
-
-            TicketStatus status = ticketStatusRepository.findById(statusId)
-                .orElseThrow(() -> new RuntimeException("Status not found"));
-
-            User createdBy = userRepository.findById(createdById)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-            Ticket ticket = new Ticket();
-            ticket.setTitle(title);
-            ticket.setDescription(description);
-            ticket.setPriority(priority);
-            ticket.setStatus(status);
-            ticket.setCreatedBy(createdBy);
-            ticket.setCreatedDate(LocalDateTime.now());
-            ticket.setModifiedDate(LocalDateTime.now());
-            ticket.setDeleted(false);
-
-            return ticketRepository.save(ticket);
-        } catch (Exception e) {
-            logger.error("Error while creating ticket", e);
-            throw new RuntimeException("Failed to create ticket", e);
-        }
-    }
 
     /**
      * Retrieves a ticket by ID.
@@ -104,13 +72,14 @@ public class TicketService {
                 throw new IllegalArgumentException("User ID cannot be null");
             }
             
-            Optional<UserRole> userRole = userRoleRepository.findByUserId(userId);
+            Optional<List<UserRole>> userRole = userRoleRepository.findByUserId(userId);
             if (!userRole.isPresent()) {
                 throw new IllegalArgumentException("User role not found for user ID: " + userId);
             }
             
-            String role = userRole.get().getRole();
-            if ("admin".equalsIgnoreCase(role)) {
+            List<UserRole> roles = userRole.get();
+            List<String> role = roles.stream().map(UserRole::getRole).collect(Collectors.toList());
+            if (role.contains("Admin")) {
                 logger.info("Admin role detected, fetching all tickets");
                 return ticketRepository.findAll();
             } else {
@@ -149,33 +118,6 @@ public class TicketService {
         }
     }
 
-    /**
-     * Updates an existing ticket.
-     */
-    @Transactional
-    public Ticket updateTicket(Long id, String title, String description, Long priorityId, Long statusId) {
-        try {
-            logger.info("Updating ticket with ID: {}", id);
-            return ticketRepository.findById(id).map(existingTicket -> {
-                existingTicket.setTitle(title);
-                existingTicket.setDescription(description);
-
-                TicketPriority priority = ticketPriorityRepository.findById(priorityId)
-                        .orElseThrow(() -> new RuntimeException("Priority not found"));
-
-                TicketStatus status = ticketStatusRepository.findById(statusId)
-                        .orElseThrow(() -> new RuntimeException("Status not found"));
-
-                existingTicket.setPriority(priority);
-                existingTicket.setStatus(status);
-                existingTicket.setModifiedDate(LocalDateTime.now());
-                return ticketRepository.save(existingTicket);
-            }).orElseThrow(() -> new RuntimeException("Ticket not found with ID: " + id));
-        } catch (Exception e) {
-            logger.error("Error updating ticket with ID: {}", id, e);
-            throw new RuntimeException("Failed to update ticket", e);
-        }
-    }
 
     /**
      * Deletes a ticket by ID.
@@ -200,13 +142,69 @@ public class TicketService {
         }
     }
 
+    /**
+     * Updates an existing ticket.
+     */
+    @Transactional
 	public Ticket updateTicket(Long id, TicketDTO ticketdto) {
-		// TODO Auto-generated method stub
-		return null;
+        try {
+            logger.info("Updating ticket with ID: {}", id);
+            return ticketRepository.findById(id).map(existingTicket -> {
+                existingTicket.setTitle(ticketdto.getTitle());
+                existingTicket.setDescription(ticketdto.getDescription());
+
+                TicketPriority priority = ticketPriorityRepository.findById(ticketdto.getPriority().getId())
+                        .orElseThrow(() -> new RuntimeException("Priority not found"));
+
+                TicketStatus status = ticketStatusRepository.findById(ticketdto.getStatus().getId())
+                        .orElseThrow(() -> new RuntimeException("Status not found"));
+
+                existingTicket.setPriority(priority);
+                existingTicket.setStatus(status);
+                existingTicket.setModifiedDate(LocalDateTime.now());
+                return ticketRepository.save(existingTicket);
+            }).orElseThrow(() -> new RuntimeException("Ticket not found with ID: " + id));
+        } catch (Exception e) {
+            logger.error("Error updating ticket with ID: {}", id, e);
+            throw new RuntimeException("Failed to update ticket", e);
+        }
+    
 	}
 
-	public void createTicket(TicketDTO ticket) {
-		// TODO Auto-generated method stub
-		
+	 @Transactional
+	public Ticket createTicket(TicketDTO ticketDto) {
+		 String title = ticketDto.getTitle();
+        try {
+            logger.info("Creating a new ticket: {}", title);
+
+            TicketPriority priority = ticketPriorityRepository.findById(ticketDto.getPriority().getId())
+                .orElseThrow(() -> new RuntimeException("Priority not found"));
+
+            TicketStatus status = ticketStatusRepository.findById(ticketDto.getStatus().getId())
+                .orElseThrow(() -> new RuntimeException("Status not found"));
+
+            User createdBy = userRepository.findById(ticketDto.getCreatedBy().getId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+            
+            User assignedTo = userRepository.findById(ticketDto.getAssignedTo().getId())
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+
+            Ticket ticket = new Ticket();
+            ticket.setTitle(title);
+            ticket.setDescription(ticketDto.getDescription());
+            ticket.setPriority(priority);
+            ticket.setStatus(status);
+            ticket.setCreatedBy(createdBy);
+            ticket.setCreatedDate(LocalDateTime.now());
+            ticket.setModifiedDate(LocalDateTime.now());
+            ticket.setDeleted(false);
+            ticket.setAssignedTo(assignedTo);
+
+            return ticketRepository.save(ticket);
+        } catch (Exception e) {
+            logger.error("Error while creating ticket", e);
+            throw new RuntimeException("Failed to create ticket", e);
+        }
+    	
 	}
 }

@@ -37,22 +37,22 @@ public class TicketController {
     @Operation(summary = "Retrieve all tickets", description = "Fetches all ticket records from the database.")
     @ApiResponse(responseCode = "200", description = "Tickets retrieved successfully")
     @GetMapping("/tickets/{userId}")
-    public ResponseEntity<?> getAllTickets(@PathVariable Long userId) {
-        if (userId == null) {
-            return ResponseEntity.badRequest().body("User ID cannot be null");
-        }
-        
-        logger.info("Fetching all tickets for user ID: {}", userId);
-        
-        List<Ticket> tickets;
+    public ResponseEntity<?> getAllTickets(@PathVariable String userId) {
         try {
-            tickets = ticketService.getAllTickets(userId);
-            return ResponseEntity.ok(tickets); 
+            Long parsedUserId = Long.parseLong(userId); // Convert string to Long
+            logger.info("Fetching all tickets for user ID: {}", parsedUserId);
+            
+            List<Ticket> tickets = ticketService.getAllTickets(parsedUserId);
+            return ResponseEntity.ok(tickets);
+        } catch (NumberFormatException e) {
+            logger.error("Invalid userId format: {}", userId);
+            return ResponseEntity.badRequest().body("User ID must be a valid number");
         } catch (Exception e) {
             logger.error("Error while fetching tickets", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to fetch tickets");
         }
     }
+
 
 
     /**

@@ -48,7 +48,11 @@ public class TicketService {
 
 
     /**
-     * Retrieves a ticket by ID.
+     * Retrieves a ticket by its ID.
+     *
+     * @param id The ID of the ticket to retrieve.
+     * @return The Ticket object if found.
+     * @throws RuntimeException If the ticket is not found.
      */
     public Ticket getTicketById(Long id) {
         try {
@@ -62,7 +66,12 @@ public class TicketService {
     }
 
     /**
-     * Retrieves all tickets.
+     * Retrieves all tickets based on the user's role.
+     *
+     * @param userId The ID of the user requesting tickets.
+     * @return List of tickets. If the user is an admin, all tickets are returned.
+     *         If the user is not an admin, only their tickets are returned.
+     * @throws IllegalArgumentException If userId is null or the user role is not found.
      */
     public List<Ticket> getAllTickets(Long userId) {
         try {
@@ -93,7 +102,10 @@ public class TicketService {
     }
 
     /**
-     * Retrieves all ticket priorities.
+     * Retrieves all available ticket priorities.
+     *
+     * @return List of all ticket priorities.
+     * @throws RuntimeException If there is an error fetching priorities.
      */
     public List<TicketPriority> getAllPriorities() {
         try {
@@ -106,7 +118,10 @@ public class TicketService {
     }
 
     /**
-     * Retrieves all ticket statuses.
+     * Retrieves all available ticket statuses.
+     *
+     * @return List of all ticket statuses.
+     * @throws RuntimeException If there is an error fetching statuses.
      */
     public List<TicketStatus> getAllStatus() {
         try {
@@ -120,7 +135,10 @@ public class TicketService {
 
 
     /**
-     * Deletes a ticket by ID.
+     * Marks a ticket as deleted by setting its deleted flag.
+     *
+     * @param id The ID of the ticket to delete.
+     * @throws RuntimeException If the ticket is not found or fails to delete.
      */
     @Transactional
     public void removeTicket(Long id) {
@@ -143,10 +161,15 @@ public class TicketService {
     }
 
     /**
-     * Updates an existing ticket.
+     * Updates an existing ticket with new data.
+     *
+     * @param id The ID of the ticket to update.
+     * @param ticketDto The new ticket data.
+     * @return The updated Ticket object.
+     * @throws RuntimeException If the ticket, priority, or status is not found.
      */
     @Transactional
-	public Ticket updateTicket(Long id, TicketDTO ticketdto) {
+    public Ticket updateTicket(Long id, TicketDTO ticketdto) {
         try {
             logger.info("Updating ticket with ID: {}", id);
             return ticketRepository.findById(id).map(existingTicket -> {
@@ -168,12 +191,18 @@ public class TicketService {
             logger.error("Error updating ticket with ID: {}", id, e);
             throw new RuntimeException("Failed to update ticket", e);
         }
-    
-	}
+    }
 
-	 @Transactional
-	public Ticket createTicket(TicketDTO ticketDto) {
-		 String title = ticketDto.getTitle();
+    /**
+     * Creates a new ticket in the system.
+     *
+     * @param ticketDto The data transfer object containing ticket details.
+     * @return The created Ticket object.
+     * @throws RuntimeException If the priority, status, or user is not found.
+     */
+    @Transactional
+    public Ticket createTicket(TicketDTO ticketDto) {
+        String title = ticketDto.getTitle();
         try {
             logger.info("Creating a new ticket: {}", title);
 
@@ -205,6 +234,5 @@ public class TicketService {
             logger.error("Error while creating ticket", e);
             throw new RuntimeException("Failed to create ticket", e);
         }
-    	
-	}
+    }
 }

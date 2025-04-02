@@ -42,8 +42,8 @@ public class Ticket {
     @Column(name = "ticket_comment", columnDefinition = "TEXT", nullable = true)
     private String ticketComment;
 
-    @Column(name = "is_deleted", nullable = false)
-    private boolean deleted = false;
+    @Column(name = "is_deleted", nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private Boolean deleted = false;
 
     @Column(name = "delete_date", nullable = true)
     private LocalDateTime deleteDate;
@@ -141,11 +141,11 @@ public class Ticket {
         this.ticketComment = ticketComment;
     }
 
-    public boolean isDeleted() {
+    public Boolean isDeleted() {
         return deleted;
     }
 
-    public void setDeleted(boolean deleted) {
+    public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
     }
 

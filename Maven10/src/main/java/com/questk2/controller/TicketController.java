@@ -33,15 +33,17 @@ public class TicketController {
 
     /**
      * Retrieves all tickets.
+     *
+     * @param userId The ID of the user requesting tickets.
+     * @return A list of tickets for the given user.
      */
     @Operation(summary = "Retrieve all tickets", description = "Fetches all ticket records from the database.")
     @ApiResponse(responseCode = "200", description = "Tickets retrieved successfully")
     @GetMapping("/tickets/{userId}")
     public ResponseEntity<?> getAllTickets(@PathVariable String userId) {
         try {
-            Long parsedUserId = Long.parseLong(userId); // Convert string to Long
+            Long parsedUserId = Long.parseLong(userId);
             logger.info("Fetching all tickets for user ID: {}", parsedUserId);
-            
             List<Ticket> tickets = ticketService.getAllTickets(parsedUserId);
             return ResponseEntity.ok(tickets);
         } catch (NumberFormatException e) {
@@ -53,10 +55,10 @@ public class TicketController {
         }
     }
 
-
-
     /**
      * Retrieves all ticket priorities.
+     *
+     * @return A list of all available ticket priorities.
      */
     @Operation(summary = "Retrieve ticket priorities", description = "Fetches all ticket priority records.")
     @ApiResponse(responseCode = "200", description = "Priorities retrieved successfully")
@@ -74,6 +76,8 @@ public class TicketController {
 
     /**
      * Retrieves all ticket statuses.
+     *
+     * @return A list of all available ticket statuses.
      */
     @Operation(summary = "Retrieve ticket status", description = "Fetches all ticket status records.")
     @ApiResponse(responseCode = "200", description = "Status retrieved successfully")
@@ -91,6 +95,9 @@ public class TicketController {
 
     /**
      * Creates a new ticket.
+     *
+     * @param ticket The TicketDTO containing ticket details.
+     * @return Response entity indicating success or failure.
      */
     @Operation(summary = "Create a new ticket", description = "Adds a new ticket with the given details.")
     @ApiResponse(responseCode = "201", description = "Ticket created successfully")
@@ -111,6 +118,10 @@ public class TicketController {
 
     /**
      * Updates an existing ticket.
+     *
+     * @param id The ID of the ticket to update.
+     * @param ticketdto The new ticket details.
+     * @return The updated Ticket object.
      */
     @Operation(summary = "Update an existing ticket", description = "Modifies an existing ticket based on its ID.")
     @ApiResponse(responseCode = "200", description = "Ticket updated successfully")
@@ -118,9 +129,6 @@ public class TicketController {
     public ResponseEntity<?> updateTicket(@PathVariable Long id, @RequestBody TicketDTO ticketdto) {
         logger.info("Updating ticket with ID: {}", id);
         try {
-            if (ticketdto == null || ticketdto.getTitle() == null || ticketdto.getTitle().isEmpty()) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid ticket details");
-            }
             Ticket updatedTicket = ticketService.updateTicket(id, ticketdto);
             return ResponseEntity.ok(updatedTicket);
         } catch (Exception e) {
@@ -131,6 +139,9 @@ public class TicketController {
 
     /**
      * Deletes a ticket by ID.
+     *
+     * @param id The ID of the ticket to delete.
+     * @return Response entity indicating success or failure.
      */
     @Operation(summary = "Delete a ticket", description = "Removes a ticket record by its ID.")
     @ApiResponse(responseCode = "200", description = "Ticket deleted successfully")
@@ -145,4 +156,4 @@ public class TicketController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete ticket");
         }
     }
-} 
+}
